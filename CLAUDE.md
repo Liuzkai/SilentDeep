@@ -4,11 +4,13 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## 项目现状
 
-SILENT DEEP 是一款核战后末世潜艇游戏，整个游戏都在复古 CRT 终端界面上进行。目前仓库有设计文档、参考图，以及一个浏览器 UI 交互原型 `prototype/`（纯静态 HTML/CSS/JS，无构建步骤、无依赖，只做界面探索，不含真实玩法；运行方式和结构见 `prototype/README.md`）和一个生态模拟项目 `deep-sea-ecosim/`（见下文）。`prototype/` 没有 lint、测试命令，目录不是 git 仓库。正式引擎还没定（文档里提到网页、Godot、Unity 都可行）。
+SILENT DEEP 是一款核战后末世潜艇游戏，整个游戏都在复古 CRT 终端界面上进行。目前仓库有设计文档、参考图，以及一个浏览器 UI 交互原型 `prototype/`（纯静态 HTML/CSS/JS，无构建步骤、无依赖，只做界面探索，不含真实玩法；运行方式和结构见 `prototype/README.md`）和一个生态模拟项目 `deep-sea-ecosim/`（见下文）。`prototype/` 没有 lint、测试命令。正式引擎还没定（文档里提到网页、Godot、Unity 都可行）。
 
 原型约定：每个界面模块是 `prototype/js/` 里的一次 `SD.register({ code, cn, ph, fkey, create })` 调用，`code` 沿用下面的大写代号；新增模块要在 `index.html` 引入，并更新 `prototype/README.md` 的表格。
 
 `deep-sea-ecosim/` 是海洋生物系统的生态模拟（按 `docs/EcosimModel.txt` 实现），和 `prototype/` 相互独立。它有构建和测试：在该目录下 `npm install`、`npm test`、`npm run build`、`npm run simulate -- --days 5000`。`src/sim/` 是生态核心，不得引用 `view/`、`ui/`、Three.js 或 DOM（有测试检查）；改公式后要跑测试并看 `REPORT.md` 里的账本和 dt 误差。
+
+整个项目是一个 git 仓库，远程是 `https://github.com/Liuzkai/SilentDeep.git`，主分支 `main`。根目录 `.gitignore` 排除 `node_modules/`、`dist/`、`.DS_Store` 和 `.claude/settings.local.json`。
 
 ## 文档分工
 
