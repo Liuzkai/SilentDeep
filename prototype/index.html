@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TACNET-7 · SILENT DEEP UI 原型</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+<!-- 中文点阵字体 Fusion Pixel（OFL），加载失败时回退到系统等宽字体 -->
+<link href="https://cdn.jsdelivr.net/npm/@fontsource/fusion-pixel-12px-monospaced-sc@5.3.0/index.css" rel="stylesheet">
+<link rel="stylesheet" href="css/crt.css">
+</head>
+<body class="phos-split">
+
+<!-- BOOT 开机自检（全屏覆盖） -->
+<div id="boot" class="crt screen" data-ph="amber">
+  <div class="screen-inner">
+    <pre id="boot-log"></pre>
+    <div id="boot-power" hidden></div>
+  </div>
+</div>
+
+<div id="app" hidden>
+  <!-- 顶部状态栏 -->
+  <header id="status" class="crt" data-ph="amber"></header>
+
+  <!-- 控制台（2~3 台） -->
+  <main id="consoles"></main>
+
+  <!-- 快捷按钮台：实体按键，不占终端屏幕 -->
+  <nav id="quick"></nav>
+
+  <!-- 内部广播 + 命令行 -->
+  <footer id="bottom" class="crt" data-ph="amber">
+    <div id="broadcast"></div>
+    <div id="cmdline">
+      <span class="prompt">TACNET-7&gt;</span>
+      <input id="cmd" autocomplete="off" spellcheck="false">
+    </div>
+    <div id="keyhints"></div>
+  </footer>
+</div>
+
+<!-- REPORT 事件弹窗 -->
+<div id="report" hidden>
+  <div id="report-noise"></div>
+  <div class="report-box">
+    <i class="cn tl"></i><i class="cn tr"></i><i class="cn bl"></i><i class="cn br"></i>
+    <div id="report-body"></div>
+  </div>
+</div>
+
+<!-- 消磁闪烁层 -->
+<div id="degauss"></div>
+
+<script src="js/core.js"></script>
+<script src="js/audio.js"></script>
+<script src="js/mod-tacplot.js"></script>
+<script src="js/mod-sonar.js"></script>
+<script src="js/mod-panels.js"></script>
+<script src="js/mod-chart.js"></script>
+<script src="js/mod-bestiary.js"></script>
+<script src="js/mod-weapons.js"></script>
+<script src="js/mod-hull.js"></script>
+<script src="js/quick.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>无岸 · 简化深海生态模拟器</title>
+<link rel="stylesheet" href="./src/ui/style.css">
+</head>
+<body>
+<header>
+  <h1>无岸 <span>简化深海生态模拟器 v0.1</span></h1>
+  <div id="clock"></div>
+  <p class="disclaimer">机制探索原型。生物量单位 BU 是归一化碳生物量，不是千克，也不是鱼的数量；画面中的鱼只是生物量的抽样表现。</p>
+</header>
+
+<main>
+  <section id="view3d" class="panel">
+    <div class="panel-h"><b>三层水体</b>
+      <span class="toggles" id="species-toggles"></span>
+      <label><input type="checkbox" id="tg-bound" checked> 层边界</label>
+      <span id="inst-info" class="muted"></span>
+    </div>
+    <div id="gl"><div id="overlay"></div></div>
+  </section>
+
+  <section id="controls" class="panel">
+    <div class="panel-h"><b>控制</b></div>
+    <div class="row">
+      <button id="bt-run">暂停</button>
+      <button id="bt-step">单步</button>
+      <button id="bt-reset">重置</button>
+    </div>
+    <div class="row">
+      <label>推进速度 <input type="range" id="speed" min="0" max="7" step="1" value="3"></label>
+      <output id="speed-o"></output>
+    </div>
+    <p class="muted">速度只改变每现实秒执行多少个固定步（dt = <span id="dt-o"></span> 日），不改变 dt。</p>
+
+    <fieldset>
+      <legend>持续捕捞（只作用于实验组）</legend>
+      <div class="row">
+        <label><input type="checkbox" id="f-on"> 开启</label>
+        <label>目标 <select id="f-target"><option>A</option><option>B</option><option>C</option><option selected>D</option></select></label>
+        <label>层 <select id="f-layer"><option value="all">全部</option><option value="0">L1</option><option value="1">L2</option><option value="2">L3</option></select></label>
+      </div>
+      <div class="row"><label>强度 u <input type="range" id="f-u" min="0" max="1" step="0.05" value="0.5"></label><output id="f-u-o"></output></div>
+      <p class="muted">u 不是"每次捕获百分比"，而是持续损失率 F = u·F<sub>max</sub>（F<sub>max</sub> = <span id="fmax-o"></span>/日）。关闭只把 F 归零，不补鱼。</p>
+    </fieldset>
+
+    <fieldset>
+      <legend>基础饵料外部补给（只作用于实验组）</legend>
+      <div class="row"><label>倍率 <input type="range" id="supply" min="0" max="2" step="0.05" value="1"></label><output id="supply-o"></output></div>
+    </fieldset>
+
+    <fieldset>
+      <legend>对照实验预设</legend>
+      <div class="row">
+        <select id="preset">
+          <option value="">自由探索（无预热）</option>
+          <option value="A">A 无捕捞基线</option>
+          <option value="B">B 持续捕捞 D</option>
+          <option value="C">C 持续捕捞 A</option>
+          <option value="CB">C′ 持续捕捞 B</option>
+          <option value="D">D 捕捞 D 后停止</option>
+          <option value="E">E 降低基础饵料补给</option>
+        </select>
+        <button id="bt-preset">载入</button>
+      </div>
+      <div class="row"><label>预热 <input type="number" id="warmup" value="1000" min="0" max="20000" step="100"> 日</label></div>
+      <p class="muted" id="preset-desc"></p>
+    </fieldset>
+
+    <div class="row">
+      <label><input type="checkbox" id="tg-ctrl" checked> 显示对照曲线</label>
+      <label><input type="checkbox" id="tg-log"> 对数纵轴</label>
+    </div>
+    <div class="row">
+      <button id="bt-export">导出实验记录 JSON</button>
+      <button id="bt-csv">导出曲线 CSV</button>
+    </div>
+    <div id="errors" class="err"></div>
+    <details><summary>干预记录（模拟时间戳）</summary><ol id="log"></ol></details>
+  </section>
+
+  <section id="chart" class="panel">
+    <div class="panel-h"><b>生物量时间曲线</b><span class="muted">实线 实验组 · 虚线 对照组 · 竖虚线 干预时刻</span></div>
+    <canvas id="cv-chart"></canvas>
+  </section>
+
+  <section id="layers" class="panel">
+    <div class="panel-h"><b>分层生物量与捕获</b><span class="muted">实验组，BU</span></div>
+    <div id="layers-body"></div>
+  </section>
+
+  <section id="web" class="panel">
+    <div class="panel-h"><b>食物网</b><span class="muted">箭头 食物 → 消费者，粗细 = 实际摄食通量 C/h（BU/日）</span></div>
+    <svg id="svg-web"></svg>
+  </section>
+
+  <section id="inspect" class="panel">
+    <div class="panel-h"><b>收支明细</b><select id="insp-pool"><option>R</option><option>A</option><option>B</option><option selected>C</option><option>D</option></select><span class="muted">当前步，实验组</span></div>
+    <div id="insp-body"></div>
+  </section>
+</main>
+<script type="module" src="./src/main.ts"></script>
+</body>
+</html>

@@ -1,0 +1,68 @@
+:root {
+  --bg: #070d15; --panel: #0c1520; --line: #1f3042; --text: #cdd9e4; --muted: #7f95a8; --accent: #7fc8f8; --warn: #ef6f6c;
+  font: 13px/1.4 -apple-system, "PingFang SC", "Helvetica Neue", sans-serif;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--text); }
+header { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 18px; padding: 8px 14px; border-bottom: 1px solid var(--line); }
+h1 { font-size: 16px; margin: 0; }
+h1 span { font-weight: normal; color: var(--muted); font-size: 13px; }
+.disclaimer { flex-basis: 100%; margin: 0; color: var(--muted); font-size: 12px; }
+#clock b { color: var(--accent); font-variant-numeric: tabular-nums; }
+.paused { color: #f2b134; }
+
+main {
+  display: grid; gap: 8px; padding: 8px;
+  grid-template-columns: minmax(0, 1.6fr) minmax(300px, 1fr) minmax(300px, 1fr);
+  grid-template-areas: "view view ctrl" "chart chart layers" "chart chart web" "insp insp web";
+  grid-template-rows: 46vh auto auto auto;
+}
+#view3d { grid-area: view; } #controls { grid-area: ctrl; overflow: auto; } #chart { grid-area: chart; }
+#layers { grid-area: layers; } #web { grid-area: web; } #inspect { grid-area: insp; }
+@media (max-width: 1100px) {
+  main { grid-template-columns: 1fr; grid-template-areas: "view" "ctrl" "chart" "layers" "web" "insp"; grid-template-rows: 60vh auto; }
+}
+
+.panel { background: var(--panel); border: 1px solid var(--line); border-radius: 4px; padding: 8px 10px; display: flex; flex-direction: column; min-width: 0; min-height: 0; }
+.panel-h { display: flex; flex-wrap: wrap; gap: 4px 12px; align-items: center; margin-bottom: 6px; }
+.panel-h b { font-weight: 600; }
+.muted { color: var(--muted); font-size: 12px; }
+.err { color: var(--warn); min-height: 1em; }
+.row { display: flex; flex-wrap: wrap; gap: 6px 12px; align-items: center; margin: 4px 0; }
+button { background: #13263a; color: var(--text); border: 1px solid #2c4760; border-radius: 3px; padding: 3px 10px; cursor: pointer; font: inherit; }
+button:hover { background: #1a3350; }
+select, input[type=number] { background: #0a1724; color: var(--text); border: 1px solid #2c4760; border-radius: 3px; font: inherit; }
+input[type=number] { width: 6em; }
+fieldset { border: 1px solid var(--line); border-radius: 3px; margin: 6px 0; padding: 4px 8px; }
+legend { color: var(--muted); font-size: 12px; }
+output { font-variant-numeric: tabular-nums; color: var(--accent); }
+.toggles { display: inline-flex; gap: 8px; }
+
+#gl { position: relative; flex: 1; min-height: 0; }
+#gl canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+#overlay { position: absolute; inset: 0; pointer-events: none; overflow: hidden; z-index: 2; }
+.label3d { position: absolute; left: 0; top: 0; font: 11px ui-monospace, Menlo, monospace; color: #9fb6ca; white-space: nowrap; }
+.label3d.layer { color: #6f8fb0; }
+
+#cv-chart { width: 100%; height: 300px; }
+#svg-web { width: 100%; height: 300px; }
+.fw-id { font: bold 14px ui-monospace, Menlo, monospace; }
+.fw-name { fill: var(--muted); font-size: 11px; }
+.fw-bu { fill: var(--text); font: 11px ui-monospace, Menlo, monospace; }
+.fw-flux { fill: #9fb6ca; font: 10px ui-monospace, Menlo, monospace; }
+
+table { border-collapse: collapse; width: 100%; font-variant-numeric: tabular-nums; }
+th, td { padding: 2px 6px; text-align: right; border-bottom: 1px solid #16242f; }
+th:first-child, td:first-child { text-align: left; }
+thead th { color: var(--muted); font-weight: normal; }
+.layers td.zero { color: var(--muted); }
+.tag { font-size: 10px; padding: 0 3px; border: 1px solid #f2b134; color: #f2b134; border-radius: 2px; }
+.tag.zero { border-color: var(--warn); color: var(--warn); }
+.ledger tr.in td:last-child { color: #7fd88f; }
+.ledger tr.out td:last-child { color: #ef8f6c; }
+.ledger tr.mig td:last-child { color: #9fb6ca; }
+.ledger tr.net td { font-weight: 600; border-top: 1px solid var(--line); }
+.ledger.small { margin-top: 8px; font-size: 12px; }
+#inspect #insp-body { display: grid; grid-template-columns: 1fr 1.6fr; gap: 12px; align-items: start; }
+#inspect #insp-body > p { grid-column: 1 / -1; margin: 0; }
+#log { margin: 4px 0; padding-left: 20px; max-height: 140px; overflow: auto; font-size: 12px; }
