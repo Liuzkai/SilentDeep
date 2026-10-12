@@ -71,3 +71,7 @@ results/            默认实验的 CSV 与报告（由 npm run simulate 生成�
 ```
 
 主要接口：`createInitialState(config)`、`step(state, config, interventions, dt)`、`runScenario(config, schedule, duration)`、`validateState(state)`、`checkBudget(previous, next, ledger)`、`runExperiment(config, id, duration, opts)`。
+
+## 许可
+
+本子项目的原创代码采用 [MIT 许可](../LICENSE)。允许使用、修改和商业分发，须保留版权及完整许可声明，无需在产品界面署名。第三方内容遵循原许可；范围与参考图例外见[仓库许可说明](../README.md#许可)。

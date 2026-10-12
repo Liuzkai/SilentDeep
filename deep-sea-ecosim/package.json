@@ -1,6 +1,7 @@
 {
   "name": "deep-sea-ecosim",
   "private": true,
+  "license": "MIT",
   "version": "0.1.0",
   "description": "无岸：简化深海生态模拟器（机制探索原型）",
   "type": "module",

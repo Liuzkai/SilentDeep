@@ -12,3 +12,9 @@
 - [deep-sea-ecosim/](deep-sea-ecosim/README.md)：海洋生物系统的生态模拟核心与 3D 可视化（TypeScript + Vite + Three.js），方案见 `docs/EcosimModel.txt`
 - `refs/seen/`：已经核对过内容的参考图
 - `refs/unseen/`：还没核对过的参考图（来源：Pinterest 看板 liuzkai2012/uxui）
+
+## 许可
+
+本仓库中 Liuzkai 的原创代码及其原创配套文档采用 [MIT 许可](LICENSE)，允许使用、复制、修改和商业分发；分发软件副本或实质性部分时，须保留版权声明及完整许可声明。无需在产品界面署名。第三方组件或内容仍遵循各自的原许可，相关版权及许可声明必须保留。
+
+MIT 范围包括 `prototype/` 和 `deep-sea-ecosim/` 的原创实现。`refs/` 下的 Pinterest／其他来源参考图及文档中引用的第三方图文不在此授权范围内；其权利归原权利人，未标明许可不代表可自由再分发。Three.js 和其他依赖保留原许可。
